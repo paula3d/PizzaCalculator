@@ -12,7 +12,13 @@ extension CalculatorView {
         
         @Published var ballsNumber : Int
         @Published var ballWeight : Int
-        @Published var hydration : Int
+        @Published var hydration : Int {
+            didSet {
+                if hydration > 99 {
+                    hydration = Int(String(hydration).prefix(2))!
+                }
+            }
+        }
         
         @Published var pizzaType : PizzaType
         @Published var yeastType : YeastType
