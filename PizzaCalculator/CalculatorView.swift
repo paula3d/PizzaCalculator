@@ -13,20 +13,58 @@ struct CalculatorView: View {
     
     var body: some View {
         VStack {
+            
             HStack {
-                VStack {
-                    Text("test")
-                    TextField("test", value: $viewModel.ballsNumber, format: .number)
+                VStack (alignment: .leading) {
+                    Text("Pizza type")
+                    Picker("Pizza type", selection: $viewModel.pizzaType) {
+                        Text(PizzaType.neapolitan.toString)
+                        Text(PizzaType.classica.toString)
+                    }
+                    .labelsHidden()
+                }
+                Spacer()
+            }
+            .padding()
+            
+            HStack {
+                VStack (alignment: .leading) {
+                    Text("Balls")
+                    TextField("Ball number", value: $viewModel.ballsNumber, format: .number)
                 }
                 
                 Spacer()
                 
-                VStack {
-                    Text("test")
-                    TextField("test", value: $viewModel.ballWeight, format: .number)
+                VStack (alignment: .leading) {
+                    Text("Ball weight")
+                    TextField("Ball weight", value: $viewModel.ballWeight, format: .number)
                 }
             }
             .padding()
+            
+            HStack {
+                VStack (alignment: .leading) {
+                    Text("Hydratation")
+                    TextField("Hydratation", value: $viewModel.hydration, format: .number)
+                }
+                
+                VStack (alignment: .leading) {
+                    Text("Yeast type")
+                    Picker("Yeast type", selection: $viewModel.yeastType) {
+                        Text(YeastType.dry.toString)
+                        Text(YeastType.fresh.toString)
+                    }
+                    .labelsHidden()
+                }
+            }
+            .padding()
+            
+            Button {
+                
+            } label: {
+                Text("Calculate")
+            }
+            Spacer()
         }
     }
 }

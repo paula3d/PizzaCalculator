@@ -53,9 +53,23 @@ class Pizza {
 }
 
 enum PizzaType {
-    case neapolitan, classic
+    case neapolitan, classica
+    
+    var toString : String {
+        switch self {
+        case .neapolitan : return "Neapolitan"
+        case .classica : return "Classica"
+        }
+    }
 }
 
 enum YeastType {
     case dry, fresh
+    
+    var toString : String {
+        switch self {
+        case .dry : return "dry"
+        case .fresh : return "fresh"
+        }
+    }
 }
