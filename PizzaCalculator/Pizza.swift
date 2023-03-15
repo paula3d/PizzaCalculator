@@ -9,14 +9,6 @@ import Foundation
 
 class Pizza {
     
-    enum PizzaType {
-        case neapolitan, classic
-    }
-    
-    enum YeastType {
-        case dry, fresh
-    }
-    
     var pizzaType : PizzaType
     var yeastType : YeastType
     
@@ -58,4 +50,12 @@ class Pizza {
         water -= Int(salt + oil)
         
     }
+}
+
+enum PizzaType {
+    case neapolitan, classic
+}
+
+enum YeastType {
+    case dry, fresh
 }
