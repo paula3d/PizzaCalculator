@@ -52,24 +52,20 @@ class Pizza {
     }
 }
 
-enum PizzaType {
-    case neapolitan, classica
+enum PizzaType : String, Identifiable, CaseIterable {
+    case neapolitan = "Neapolitan"
+    case classica = "Classica"
     
-    var toString : String {
-        switch self {
-        case .neapolitan : return "Neapolitan"
-        case .classica : return "Classica"
-        }
+    var id: Self {
+        return self
     }
 }
 
-enum YeastType {
-    case dry, fresh
+enum YeastType: String, Identifiable, CaseIterable {
+    case dry = "Dry"
+    case fresh = "Fresh"
     
-    var toString : String {
-        switch self {
-        case .dry : return "dry"
-        case .fresh : return "fresh"
-        }
+    var id: Self {
+        return self
     }
 }
