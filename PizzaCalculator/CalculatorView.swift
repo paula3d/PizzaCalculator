@@ -113,68 +113,6 @@ struct CalculatorView: View {
     }
 }
 
-//struct MyTextFieldView : View {
-//
-//    var description : String
-//    @Binding var value : Int
-//
-//    let outerColor = Color(red: 0, green: 204/255, blue: 0)
-//    let innerColor = Color(red: 51/255, green: 255/255, blue: 51/255)
-//    let titleColor = Color(red: 37/255, green: 70/255, blue: 37/255)
-//
-//
-//    var body : some View {
-//        VStack (alignment: .leading) {
-//            Text(description)
-//                .foregroundColor(titleColor)
-//                .font(.headline)
-//
-//            TextField(description, value: $value, format: .number)
-//                .padding([.bottom, .top], 5)
-//                .padding([.leading], 15)
-//                .background(innerColor)
-//                .cornerRadius(30)
-//                .padding([.bottom], -10)
-//                .padding([.leading, .trailing], -10)
-//        }
-//        .padding()
-//        .background(outerColor)
-//        .cornerRadius(20)
-//    }
-//}
-
-//struct MyPickerView : View {
-//
-//    var description : String
-//    @Binding var value : Int
-//    var options : [String]
-//
-//    let outerColor = Color(red: 0, green: 204/255, blue: 0)
-//    let innerColor = Color(red: 51/255, green: 255/255, blue: 51/255)
-//    let titleColor = Color(red: 37/255, green: 70/255, blue: 37/255)
-//
-//    var body: some View {
-//        VStack(alignment: .leading) {
-//            Text(description)
-//                .foregroundColor(titleColor)
-//                .font(.headline)
-//
-//            Picker(description, selection: $value) {
-//                ForEach(options, id: \.self) { option in
-//                    Text(option)
-//                }
-//            }
-//            .labelsHidden()
-//            .padding([.bottom, .top], 5)
-//            .padding([.leading], 15)
-//            .background(innerColor)
-//            .cornerRadius(30)
-//            .padding([.bottom], -10)
-//            .padding([.leading, .trailing], -10)
-//        }
-//    }
-//}
-
 struct OuterViewModifier : ViewModifier {
     
     var geometryProxy : GeometryProxy
