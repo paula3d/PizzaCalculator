@@ -9,16 +9,32 @@ import SwiftUI
 
 struct ResultsView: View {
     
-    @EnvironmentObject private var viewModel : ViewModel
+    var pizza : Pizza
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Styles.Background()
+                .ignoresSafeArea()
+            
+            VStack {
+                List {
+                    Text("Pizza type: \(pizza.pizzaType.rawValue)")
+                    // TODO: Add other fields
+                    
+                        .listRowBackground(MyColor.uiElementAccent.value)
+                }
+                .background(Styles.Background())
+                .scrollContentBackground(.hidden)
+            }
+        }
     }
 
 }
 
 struct ResultsView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        ResultsView()
+        ResultsView(pizza: Pizza(pizzaType: .neapolitan, yeastType: .dry, ballsNumber: 4, ballWeight: 250, hydratation: 60))
+        
     }
 }

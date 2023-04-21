@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CalculatorView: View {
     
-    @StateObject private var viewModel = ViewModel()
+    @StateObject var viewModel = ViewModel()
     @State private var notSupportedType = false
     
     init() {
@@ -103,7 +103,7 @@ struct CalculatorView: View {
                             .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                         }
                         
-                        NavigationLink(destination: ResultsView()) {
+                        NavigationLink(destination: ResultsView(pizza: viewModel.pizza)) {
                             Text("Calculate")
                                 .modifier(Styles.ButtonModifier())
                                 .padding([.top])
