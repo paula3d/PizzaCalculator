@@ -10,6 +10,7 @@ import SwiftUI
 struct CalculatorView: View {
     
     @StateObject private var viewModel = ViewModel()
+    @State private var notSupportedPizzaType = false
     
     init() {
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(MyColor.uiElementAccent.value)
@@ -32,6 +33,11 @@ struct CalculatorView: View {
                             Picker("Pizza type", selection: $viewModel.pizzaType) {
                                 ForEach(PizzaType.allCases) { pizzaType in
                                     Text(pizzaType.rawValue)
+                                }
+                            }
+                            .onChange(of: viewModel.pizzaType) { chosenType in
+                                if chosenType == .classica {
+                                    notSupportedPizzaType = true
                                 }
                             }
                             .pickerStyle(SegmentedPickerStyle())
@@ -102,6 +108,13 @@ struct CalculatorView: View {
                     Spacer()
                 }
             }
+        }
+        .alert("Type not supported", isPresented: $notSupportedPizzaType) {
+            Button("Ok") {
+                viewModel.pizzaType = .neapolitan
+            }
+        } message: {
+            Text("The chosen pizza type is not supported by the appliaction yet")
         }
     }
 }
