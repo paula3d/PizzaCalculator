@@ -10,7 +10,7 @@ import SwiftUI
 struct CalculatorView: View {
     
     @StateObject private var viewModel = ViewModel()
-    @State private var notSupportedPizzaType = false
+    @State private var notSupportedType = false
     
     init() {
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(MyColor.uiElementAccent.value)
@@ -37,7 +37,7 @@ struct CalculatorView: View {
                             }
                             .onChange(of: viewModel.pizzaType) { chosenType in
                                 if chosenType == .classica {
-                                    notSupportedPizzaType = true
+                                    notSupportedType = true
                                 }
                             }
                             .pickerStyle(SegmentedPickerStyle())
@@ -90,6 +90,11 @@ struct CalculatorView: View {
                                     Text(yeastType.rawValue)
                                 }
                             }
+                            .onChange(of: viewModel.yeastType) { chosenType in
+                                if chosenType == .fresh {
+                                    notSupportedType = true
+                                }
+                            }
                             .pickerStyle(SegmentedPickerStyle())
                             .labelsHidden()
                             .modifier(Styles.InnerViewModifier(isPicker: true))
@@ -109,12 +114,13 @@ struct CalculatorView: View {
                 }
             }
         }
-        .alert("Type not supported", isPresented: $notSupportedPizzaType) {
+        .alert("Type not supported", isPresented: $notSupportedType) {
             Button("Ok") {
                 viewModel.pizzaType = .neapolitan
+                viewModel.yeastType = .dry
             }
         } message: {
-            Text("The chosen pizza type is not supported by the appliaction yet")
+            Text("The chosen type is not supported by the appliaction yet")
         }
     }
 }
