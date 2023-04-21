@@ -47,6 +47,7 @@ struct CalculatorView: View {
                                 .modifier(Styles.HeadingModifier())
                             
                             TextField("Ball number", value: $viewModel.ballsNumber, format: .number)
+                                .keyboardType(.decimalPad)
                                 .modifier(Styles.InnerViewModifier(isPicker: false))
                         }
                         .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
@@ -56,6 +57,7 @@ struct CalculatorView: View {
                                 .modifier(Styles.HeadingModifier())
                             
                             TextField("Ball weight", value: $viewModel.ballWeight, format: .number)
+                                .keyboardType(.decimalPad)
                                 .modifier(Styles.InnerViewModifier(isPicker: false))
                         }
                         .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
@@ -67,18 +69,16 @@ struct CalculatorView: View {
                             Text("Hydratation")
                                 .modifier(Styles.HeadingModifier())
                             
-                            TextField("Hydratation", value: $viewModel.ballWeight, format: .number)
+                            TextField("Hydratation", value: $viewModel.hydration, format: .number)
+                                .keyboardType(.decimalPad)
                                 .modifier(Styles.InnerViewModifier(isPicker: false))
                         }
                         .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                         
-                        
-                        // TODO: Change the appearance, looks kinda ugly
                         VStack(alignment: .leading) {
                             Text("Yeast type")
                                 .modifier(Styles.HeadingModifier())
                             
-                            // TODO: Style the picker
                             Picker("Yeast type", selection: $viewModel.yeastType) {
                                 ForEach(YeastType.allCases) { yeastType in
                                     Text(yeastType.rawValue)
