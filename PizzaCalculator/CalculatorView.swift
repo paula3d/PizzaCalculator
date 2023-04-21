@@ -17,110 +17,109 @@ struct CalculatorView: View {
     }
     
     var body: some View {
-        ZStack {
-            
-            Styles.Background()
-                .ignoresSafeArea()
-            
-            GeometryReader { geo in
-                VStack(alignment: .center) {
-                    HStack {
-                        VStack () {
-                            Text("Pizza type")
-                                .modifier(Styles.HeadingModifier())
-                            
-                            // TODO: Style the picker
-                            Picker("Pizza type", selection: $viewModel.pizzaType) {
-                                ForEach(PizzaType.allCases) { pizzaType in
-                                    Text(pizzaType.rawValue)
+        NavigationStack {
+            ZStack {
+                
+                Styles.Background()
+                    .ignoresSafeArea()
+                
+                GeometryReader { geo in
+                    VStack(alignment: .center) {
+                        HStack {
+                            VStack () {
+                                Text("Pizza type")
+                                    .modifier(Styles.HeadingModifier())
+                                
+                                // TODO: Style the picker
+                                Picker("Pizza type", selection: $viewModel.pizzaType) {
+                                    ForEach(PizzaType.allCases) { pizzaType in
+                                        Text(pizzaType.rawValue)
+                                    }
                                 }
-                            }
-                            .onChange(of: viewModel.pizzaType) { chosenType in
-                                if chosenType == .classica {
-                                    notSupportedType = true
+                                .onChange(of: viewModel.pizzaType) { chosenType in
+                                    if chosenType == .classica {
+                                        notSupportedType = true
+                                    }
                                 }
+                                .pickerStyle(SegmentedPickerStyle())
+                                .labelsHidden()
+                                .modifier(Styles.InnerViewModifier(isPicker: true))
                             }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .labelsHidden()
-                            .modifier(Styles.InnerViewModifier(isPicker: true))
+                            .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier: 0.80))
                         }
-                        .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier: 0.80))
-                    }
-                    
-                    HStack {
-                        VStack (alignment: .leading) {
-                            Text("Ball number")
-                                .modifier(Styles.HeadingModifier())
-                            
-                            TextField("Ball number", value: $viewModel.ballsNumber, format: .number)
-                                .keyboardType(.decimalPad)
-                                .modifier(Styles.InnerViewModifier(isPicker: false))
-                        }
-                        .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                         
-                        VStack (alignment: .leading) {
-                            Text("Ball weight")
-                                .modifier(Styles.HeadingModifier())
+                        HStack {
+                            VStack (alignment: .leading) {
+                                Text("Ball number")
+                                    .modifier(Styles.HeadingModifier())
+                                
+                                TextField("Ball number", value: $viewModel.ballsNumber, format: .number)
+                                    .keyboardType(.decimalPad)
+                                    .modifier(Styles.InnerViewModifier(isPicker: false))
+                            }
+                            .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                             
-                            TextField("Ball weight", value: $viewModel.ballWeight, format: .number)
-                                .keyboardType(.decimalPad)
-                                .modifier(Styles.InnerViewModifier(isPicker: false))
+                            VStack (alignment: .leading) {
+                                Text("Ball weight")
+                                    .modifier(Styles.HeadingModifier())
+                                
+                                TextField("Ball weight", value: $viewModel.ballWeight, format: .number)
+                                    .keyboardType(.decimalPad)
+                                    .modifier(Styles.InnerViewModifier(isPicker: false))
+                            }
+                            .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                         }
-                        .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
-                    }
-                    
-                    HStack {
                         
-                        VStack (alignment: .leading) {
-                            Text("Hydratation")
-                                .modifier(Styles.HeadingModifier())
+                        HStack {
                             
-                            TextField("Hydratation", value: $viewModel.hydration, format: .number)
-                                .keyboardType(.decimalPad)
-                                .modifier(Styles.InnerViewModifier(isPicker: false))
-                        }
-                        .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
-                        
-                        VStack(alignment: .leading) {
-                            Text("Yeast type")
-                                .modifier(Styles.HeadingModifier())
+                            VStack (alignment: .leading) {
+                                Text("Hydratation")
+                                    .modifier(Styles.HeadingModifier())
+                                
+                                TextField("Hydratation", value: $viewModel.hydration, format: .number)
+                                    .keyboardType(.decimalPad)
+                                    .modifier(Styles.InnerViewModifier(isPicker: false))
+                            }
+                            .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                             
-                            Picker("Yeast type", selection: $viewModel.yeastType) {
-                                ForEach(YeastType.allCases) { yeastType in
-                                    Text(yeastType.rawValue)
+                            VStack(alignment: .leading) {
+                                Text("Yeast type")
+                                    .modifier(Styles.HeadingModifier())
+                                
+                                Picker("Yeast type", selection: $viewModel.yeastType) {
+                                    ForEach(YeastType.allCases) { yeastType in
+                                        Text(yeastType.rawValue)
+                                    }
                                 }
-                            }
-                            .onChange(of: viewModel.yeastType) { chosenType in
-                                if chosenType == .fresh {
-                                    notSupportedType = true
+                                .onChange(of: viewModel.yeastType) { chosenType in
+                                    if chosenType == .fresh {
+                                        notSupportedType = true
+                                    }
                                 }
+                                .pickerStyle(SegmentedPickerStyle())
+                                .labelsHidden()
+                                .modifier(Styles.InnerViewModifier(isPicker: true))
                             }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .labelsHidden()
-                            .modifier(Styles.InnerViewModifier(isPicker: true))
+                            .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                         }
-                        .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
-                    }
-                    
-                    Button {
-                        // TODO: Calculate the values and display results
                         
-                    } label: {
-                        Text("Calculate")
-                            .modifier(Styles.ButtonModifier())
-                            .padding([.top])
+                        NavigationLink(destination: ResultsView()) {
+                            Text("Calculate")
+                                .modifier(Styles.ButtonModifier())
+                                .padding([.top])
+                        }
+                        Spacer()
                     }
-                    Spacer()
                 }
             }
-        }
-        .alert("Type not supported", isPresented: $notSupportedType) {
-            Button("Ok") {
-                viewModel.pizzaType = .neapolitan
-                viewModel.yeastType = .dry
+            .alert("Type not supported", isPresented: $notSupportedType) {
+                Button("Ok") {
+                    viewModel.pizzaType = .neapolitan
+                    viewModel.yeastType = .dry
+                }
+            } message: {
+                Text("The chosen type is not supported by the appliaction yet")
             }
-        } message: {
-            Text("The chosen type is not supported by the appliaction yet")
         }
     }
 }

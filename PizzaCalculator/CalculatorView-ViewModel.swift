@@ -23,6 +23,8 @@ extension CalculatorView {
         @Published var pizzaType : PizzaType
         @Published var yeastType : YeastType
         
+        var pizzas = Pizzas()
+        
         init() {
             _ballsNumber = Published(initialValue: 4)
             _ballWeight = Published(initialValue: 250)
@@ -30,6 +32,11 @@ extension CalculatorView {
             
             _pizzaType = Published(initialValue: .neapolitan)
             _yeastType = Published(initialValue: .dry)
+        }
+        
+        func calculate() {
+            let newPizza = Pizza(pizzaType: pizzaType, yeastType: yeastType, ballsNumber: ballsNumber, ballWeight: ballWeight, hydratation: hydration)
+            pizzas.add(newPizza)
         }
     }
 }

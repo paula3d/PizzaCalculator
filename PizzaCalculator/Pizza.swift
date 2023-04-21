@@ -7,17 +7,17 @@
 
 import Foundation
 
-class Pizza {
+class Pizza : Codable {
     
     var pizzaType : PizzaType
     var yeastType : YeastType
     
-    var ballsNumber : Int
-    var ballWeight : Int
-    var hydratation : Int
+    var ballsNumber : Double
+    var ballWeight : Double
+    var hydratation : Double
     
-    var flour : Int
-    var water : Int
+    var flour : Double
+    var water : Double
     var salt : Double
     var yeast : Double
     var oil : Double
@@ -28,31 +28,31 @@ class Pizza {
         self.pizzaType = pizzaType
         self.yeastType = yeastType
         
-        self.ballsNumber = ballsNumber
-        self.ballWeight = ballWeight
-        self.hydratation = hydratation
+        self.ballsNumber = Double(ballsNumber)
+        self.ballWeight = Double(ballWeight)
+        self.hydratation = Double(hydratation)
         
         
-        let weight = ballsNumber * ballWeight
+        let weight = self.ballsNumber * self.ballWeight
         
-        flour = weight * ( 100 - hydratation ) / 100
+        flour = weight * ( 100 - self.hydratation ) / 100
         water = weight - flour
         
         if pizzaType == .neapolitan {
-            salt = Double(water) * 50 / 1000
+            salt = flour * 0.015
+            oil = flour * 0.015
+            yeast = flour * 0.003
         } else {
             salt = 0.0 //placeholder
+            oil = 0.0 //placeholder
+            yeast = 0.0 //placeholder
         }
         
-        oil = 0.0 //placeholder
-        yeast = 0.0 //placeholder
-        
-        water -= Int(salt + oil)
-        
+        water -= salt + oil
     }
 }
 
-enum PizzaType : String, Identifiable, CaseIterable {
+enum PizzaType : String, Identifiable, CaseIterable, Codable {
     case neapolitan = "Neapolitan"
     case classica = "Classica"
     
@@ -61,11 +61,41 @@ enum PizzaType : String, Identifiable, CaseIterable {
     }
 }
 
-enum YeastType: String, Identifiable, CaseIterable {
+enum YeastType: String, Identifiable, CaseIterable, Codable {
     case dry = "Dry"
     case fresh = "Fresh"
     
     var id: Self {
         return self
+    }
+}
+
+class Pizzas : ObservableObject {
+    @Published private(set) var pizzas : [Pizza]
+    
+    let savePath = FileManager.documentsDirectory.appendingPathComponent("PizzasData")
+    
+    init() {
+        do {
+            let data = try Data(contentsOf: savePath)
+            pizzas = try JSONDecoder().decode([Pizza].self, from: data)
+        } catch {
+            print("Unable to load data.")
+            pizzas = []
+        }
+    }
+    
+    func save() {
+        do {
+            let data = try JSONEncoder().encode(pizzas)
+            try data.write(to: savePath, options: [.atomic, .completeFileProtection])
+        } catch {
+            print("Unable to save data.")
+        }
+    }
+    
+    func add(_ pizza : Pizza) {
+        pizzas.insert(pizza, at: 0)
+        save()
     }
 }
