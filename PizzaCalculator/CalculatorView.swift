@@ -76,7 +76,7 @@ struct CalculatorView: View {
                                 Text("Hydratation")
                                     .modifier(Styles.HeadingModifier())
                                 
-                                TextField("Hydratation", value: $viewModel.hydration, format: .number)
+                                TextField("Hydratation", value: $viewModel.hydratation, format: .number)
                                     .keyboardType(.decimalPad)
                                     .modifier(Styles.InnerViewModifier(isPicker: false))
                             }
@@ -108,6 +108,7 @@ struct CalculatorView: View {
                                 .modifier(Styles.ButtonModifier())
                                 .padding([.top])
                         }
+                        .environmentObject(viewModel)
                         Spacer()
                     }
                 }
