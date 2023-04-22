@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var pizzas = Pizzas()
+    
     var body: some View {
         TabView {
             
@@ -23,6 +26,7 @@ struct ContentView: View {
                     Label("History", systemImage: "text.book.closed")
                 }
         }
+        .environmentObject(pizzas)
     }
 }
 
