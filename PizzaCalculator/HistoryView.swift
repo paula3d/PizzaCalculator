@@ -47,6 +47,7 @@ struct HistoryView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
+                        .disabled(pizzas.pizzas.isEmpty)
                 }
             }
         }
