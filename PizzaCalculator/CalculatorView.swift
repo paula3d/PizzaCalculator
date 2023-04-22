@@ -30,7 +30,6 @@ struct CalculatorView: View {
                                 Text("Pizza type")
                                     .modifier(Styles.HeadingModifier())
                                 
-                                // TODO: Style the picker
                                 Picker("Pizza type", selection: $viewModel.pizzaType) {
                                     ForEach(PizzaType.allCases) { pizzaType in
                                         Text(pizzaType.rawValue)

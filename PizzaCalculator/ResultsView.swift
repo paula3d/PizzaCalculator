@@ -53,17 +53,6 @@ struct ResultsView: View {
                 }
                 .background(Styles.Background())
                 .scrollContentBackground(.hidden)
-                .toolbar {
-                    if enteredFromCaululator {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                dismiss()
-                            } label: {
-                                Text("Dismiss")
-                            }
-                        }
-                    }
-                }
                 if enteredFromCaululator {
                     Button {
                         pizzas.add(pizza)
