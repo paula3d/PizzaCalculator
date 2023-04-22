@@ -18,27 +18,31 @@ struct HistoryView: View {
                 Styles.Background()
                     .ignoresSafeArea()
                 
-                List {
-                    ForEach(pizzas.pizzas) { pizza in
-                        NavigationLink {
-                            ResultsView(pizza: pizza, enteredFromCaululator: false)
-                        } label: {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(pizza.pizzaType.rawValue)
-                                        .font(.headline)
-                                    Text(pizza.createdOn.formatted(.dateTime.day().month().year()))
-                                        .font(.footnote)
+                if pizzas.pizzas.isEmpty {
+                    Text("There are no saved entries.")
+                } else {
+                    List {
+                        ForEach(pizzas.pizzas) { pizza in
+                            NavigationLink {
+                                ResultsView(pizza: pizza, enteredFromCaululator: false)
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(pizza.pizzaType.rawValue)
+                                            .font(.headline)
+                                        Text(pizza.createdOn.formatted(.dateTime.day().month().year()))
+                                            .font(.footnote)
+                                    }
                                 }
                             }
+                            .listRowBackground(Color.green.opacity(0))
                         }
-                        .listRowBackground(Color.green.opacity(0))
+                        .onDelete(perform: deleteEntry)
                     }
-                    .onDelete(perform: deleteEntry)
+                    .listStyle(.inset)
+                    .background(Styles.Background())
+                    .scrollContentBackground(.hidden)
                 }
-                .listStyle(.inset)
-                .background(Styles.Background())
-                .scrollContentBackground(.hidden)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
