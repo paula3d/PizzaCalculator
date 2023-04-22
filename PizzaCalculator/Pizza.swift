@@ -7,8 +7,9 @@
 
 import Foundation
 
-class Pizza : Codable {
+class Pizza : Codable, Identifiable {
     
+    var id = UUID()
     var pizzaType : PizzaType
     var yeastType : YeastType
     
@@ -22,6 +23,7 @@ class Pizza : Codable {
     var yeast : Double
     var oil : Double
     
+    var createdOn : Date
     
     init(pizzaType : PizzaType, yeastType : YeastType, ballsNumber : Int, ballWeight : Int, hydratation : Int) {
         
@@ -49,6 +51,8 @@ class Pizza : Codable {
         }
         
         water -= salt + oil
+        
+        createdOn = Date.now
     }
 }
 
@@ -95,7 +99,14 @@ class Pizzas : ObservableObject {
     }
     
     func add(_ pizza : Pizza) {
-        pizzas.insert(pizza, at: 0)
+        if !pizzas.contains(where: { $0.id == pizza.id }) {
+            pizzas.insert(pizza, at: 0)
+            save()
+        }
+    }
+    
+    func remove(at i: Int) {
+        pizzas.remove(at: i)
         save()
     }
 }

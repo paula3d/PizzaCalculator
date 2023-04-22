@@ -103,7 +103,7 @@ struct CalculatorView: View {
                             .modifier(Styles.OuterViewModifier(geometryProxy: geo, widthMultiplier : 0.40))
                         }
                         
-                        NavigationLink(destination: ResultsView(pizza: viewModel.pizza)) {
+                        NavigationLink(destination: ResultsView(pizza: viewModel.pizza, enteredFromCaululator: true)) {
                             Text("Calculate")
                                 .modifier(Styles.ButtonModifier())
                                 .padding([.top])

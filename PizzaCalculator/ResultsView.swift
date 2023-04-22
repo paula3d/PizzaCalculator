@@ -12,8 +12,11 @@ struct ResultsView: View {
     @Environment(\.dismiss) var dismiss
     
     var pizza : Pizza
+    var enteredFromCaululator : Bool
+    
     @EnvironmentObject var pizzas : Pizzas
     @State private var entrySaved = false
+    
     
     var body: some View {
         ZStack {
@@ -51,25 +54,28 @@ struct ResultsView: View {
                 .background(Styles.Background())
                 .scrollContentBackground(.hidden)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text("Dismiss")
+                    if enteredFromCaululator {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text("Dismiss")
+                            }
                         }
                     }
                 }
-                
-                Button {
-                    pizzas.add(pizza)
-                    withAnimation(.easeInOut(duration: 1)) {
-                        entrySaved = true
+                if enteredFromCaululator {
+                    Button {
+                        pizzas.add(pizza)
+                        withAnimation(.easeInOut(duration: 1)) {
+                            entrySaved = true
+                        }
+                    } label: {
+                        Text("Save")
+                            .bold()
                     }
-                } label: {
-                    Text("Save")
-                        .bold()
+                    Spacer()
                 }
-                Spacer()
             }
             
             if entrySaved {
@@ -94,7 +100,7 @@ struct ResultsView: View {
 struct ResultsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ResultsView(pizza: Pizza(pizzaType: .neapolitan, yeastType: .dry, ballsNumber: 4, ballWeight: 250, hydratation: 60))
+        ResultsView(pizza: Pizza(pizzaType: .neapolitan, yeastType: .dry, ballsNumber: 4, ballWeight: 250, hydratation: 60), enteredFromCaululator: true)
         
     }
 }

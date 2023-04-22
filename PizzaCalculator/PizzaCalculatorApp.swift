@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct PizzaCalculatorApp: App {
+    
+    @StateObject var pizzas = Pizzas()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(pizzas)
         }
     }
 }
